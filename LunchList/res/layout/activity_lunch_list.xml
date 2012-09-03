@@ -18,7 +18,7 @@
 
         <EditText
             android:id="@+id/name"
-            android:layout_width="279dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
@@ -37,7 +37,7 @@
 
         <EditText
             android:id="@+id/addr"
-            android:layout_width="261dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
             <requestFocus />
