@@ -35,4 +35,9 @@ public class Restaurant {
 	{
 		this.type = type;
 	}
+	
+	public String toString()
+	{
+		return(getName());
+	}
 }
