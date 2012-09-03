@@ -14,12 +14,15 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#500090"
             android:text="Name:" />
 
         <EditText
             android:id="@+id/name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="This is a hint."
+            android:textColor="#50909000" />
     </LinearLayout>
 
     <LinearLayout
@@ -38,7 +41,8 @@
         <EditText
             android:id="@+id/addr"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:hint="This is another hint." >
 
             <requestFocus />
         </EditText>
