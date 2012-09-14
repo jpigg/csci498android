@@ -14,11 +14,23 @@ import android.widget.*;
 public class LunchList extends TabActivity {
 	List<Restaurant> model = new ArrayList<Restaurant>();
 	RestaurantAdapter adapter = null;
+	
+    //APT6 step 4
+    EditText name = null;
+    EditText address = null;
+    RadioGroup types = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+       
+        
         setContentView(R.layout.activity_lunch_list);
+        
+        //APT6 step 4
+        name = (EditText)findViewById(R.id.name);
+        address = (EditText)findViewById(R.id.addr);
+        types = (RadioGroup)findViewById(R.id.types);
         
         Button save = (Button)findViewById(R.id.save);
         
@@ -27,6 +39,8 @@ public class LunchList extends TabActivity {
         ListView list = (ListView)findViewById(R.id.restaurants);
         adapter = new RestaurantAdapter();
         list.setAdapter(adapter);
+        list.setOnItemClickListener(onListClick);
+        
         
         //Tabs added in APT6
         TabHost.TabSpec spec = getTabHost().newTabSpec("tag1");
@@ -42,20 +56,48 @@ public class LunchList extends TabActivity {
         
         getTabHost().addTab(spec);
         getTabHost().setCurrentTab(0);
+        
+
+        
+        
     }
+    
+    private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
+    	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    		Restaurant r = model.get(position);
+    		
+    		name.setText(r.getName());
+    		address.setText(r.getAddress());
+    		
+    		if (r.getType().equals("sit_down"))
+    		{
+    			types.check(R.id.sit_down);
+    		}
+    		else if (r.getType().equals("take_out"))
+    		{
+    			types.check(R.id.take_out);
+    		}
+    		else
+    		{
+    			types.check(R.id.delivery);
+    		}
+    		
+    		getTabHost().setCurrentTab(1);
+    	}
+	};
 
     private View.OnClickListener onSave = new View.OnClickListener() {
 		
 		public void onClick(View v) {
 			Restaurant r = new Restaurant();
 			
-			EditText name = (EditText)findViewById(R.id.name);
-			EditText address = (EditText)findViewById(R.id.addr);
+			//EditText name = (EditText)findViewById(R.id.name);
+			//EditText address = (EditText)findViewById(R.id.addr);
 			
 			r.setName(name.getText().toString());
 			r.setAddress(address.getText().toString());
 			
-			RadioGroup types = (RadioGroup)findViewById(R.id.types);
+			//RadioGroup types = (RadioGroup)findViewById(R.id.types);
 			
 			switch (types.getCheckedRadioButtonId())
 			{
