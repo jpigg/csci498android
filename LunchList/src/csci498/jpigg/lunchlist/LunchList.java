@@ -242,14 +242,20 @@ public class LunchList extends Activity {
 			if (r.getType().equals("sit_down"))
 			{
 				icon.setImageResource(R.drawable.ball_red);
+				name.setTextColor(0xffff0000);
+				address.setTextColor(0xddff0000);
 			}
 			else if (r.getType().equals("take_out"))
 			{
 				icon.setImageResource(R.drawable.ball_yellow);
+				name.setTextColor(0xffffff00);
+				address.setTextColor(0xddffff00);
 			}
 			else
 			{
 				icon.setImageResource(R.drawable.ball_green);
+				name.setTextColor(0xff00ff00);
+				address.setTextColor(0xdd00ff00);
 			}
 		}
 	}
