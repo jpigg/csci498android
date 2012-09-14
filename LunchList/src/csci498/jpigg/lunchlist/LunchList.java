@@ -18,6 +18,7 @@ public class LunchList extends TabActivity {
     //APT6 step 4
     EditText name = null;
     EditText address = null;
+    EditText notes = null;
     RadioGroup types = null;
 
     @Override
@@ -30,6 +31,7 @@ public class LunchList extends TabActivity {
         //APT6 step 4
         name = (EditText)findViewById(R.id.name);
         address = (EditText)findViewById(R.id.addr);
+        notes = (EditText)findViewById(R.id.notes);
         types = (RadioGroup)findViewById(R.id.types);
         
         Button save = (Button)findViewById(R.id.save);
@@ -68,6 +70,7 @@ public class LunchList extends TabActivity {
     		
     		name.setText(r.getName());
     		address.setText(r.getAddress());
+    		notes.setText(r.getNotes());
     		
     		if (r.getType().equals("sit_down"))
     		{
@@ -96,6 +99,7 @@ public class LunchList extends TabActivity {
 			
 			r.setName(name.getText().toString());
 			r.setAddress(address.getText().toString());
+			r.setNotes(notes.getText().toString());
 			
 			//RadioGroup types = (RadioGroup)findViewById(R.id.types);
 			
