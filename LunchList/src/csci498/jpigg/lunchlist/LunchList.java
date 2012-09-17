@@ -93,6 +93,7 @@ public class LunchList extends TabActivity {
     private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
     	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
     		
+    		current = model.get(position);
     		
     		name.setText(current.getName());
     		address.setText(current.getAddress());
