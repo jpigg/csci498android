@@ -3,6 +3,7 @@ package csci498.jpigg.lunchlist;
 import java.util.*;
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.app.TabActivity;
@@ -12,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.*;
 
 public class LunchList extends TabActivity {
@@ -24,11 +26,12 @@ public class LunchList extends TabActivity {
     EditText notes = null;
     RadioGroup types = null;
     Restaurant current = null;
+    int progress;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       
+        requestWindowFeature(Window.FEATURE_PROGRESS);
         setContentView(R.layout.activity_lunch_list);
         
         //APT6 step 4
@@ -88,6 +91,22 @@ public class LunchList extends TabActivity {
     	}
     	
     	return(super.onOptionsItemSelected(item));
+    }
+    
+    private Runnable longTast = new Runnable()
+    {
+    	public void run()
+    	{
+    		for (int i = 0; i < 20; i++)
+    		{
+    			doSomeLongWork(500);
+    		}
+    	}
+    };
+    
+    private void doSomeLongWork(final int incr)
+    {
+    	SystemClock.sleep(250);
     }
     
     private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
