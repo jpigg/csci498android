@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class LunchList extends TabActivity {
 	List<Restaurant> model = new ArrayList<Restaurant>();
@@ -26,7 +27,9 @@ public class LunchList extends TabActivity {
     EditText notes = null;
     RadioGroup types = null;
     Restaurant current = null;
+    AtomicBoolean isActive = new AtomicBoolean(true);
     int progress;
+    
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -91,9 +94,7 @@ public class LunchList extends TabActivity {
     	}
     	else if (item.getItemId()==R.id.run)
     	{
-    		setProgressBarVisibility(true);
-    		progress = 0;
-    		new Thread(longTask).start();
+    		startWork();
     		
     		return true;
     	}
@@ -101,24 +102,53 @@ public class LunchList extends TabActivity {
     	return(super.onOptionsItemSelected(item));
     }
     
+    @Override
+    public void onPause()
+    {
+    	super.onPause();
+    	
+    	isActive.set(false);
+    }
+    
+    @Override
+    public void onResume()
+    {
+    	super.onResume();
+    	
+    	isActive.set(true);
+    	
+    	if (progress > 0)
+    	{
+    		startWork();
+    	}
+    }
+    
+    public void startWork()
+    {
+    	setProgressBarVisibility(true);
+    	new Thread(longTask).start();
+    }
+    
     private Runnable longTask = new Runnable()
     {
     	public void run()
     	{
-    		for (int i = 0; i < 20; i++)
+    		for (int i = progress; i < 10000 && isActive.get(); i+=200)
     		{
-    			doSomeLongWork(500);
+    			doSomeLongWork(200);
     		}
     		
-    		runOnUiThread(new Runnable(){
-    			public void run()
-    			{
-    				setProgressBarVisibility(false);
-    				
-    			}
-    		});
+    		if(isActive.get())
+    		{
+    			runOnUiThread(new Runnable(){
+    				public void run()
+    				{
+    					setProgressBarVisibility(false);
+    					progress = 0;
+    				}
+    			});
+    		}
     	}
-    	
     };
     
     private void doSomeLongWork(final int incr)
