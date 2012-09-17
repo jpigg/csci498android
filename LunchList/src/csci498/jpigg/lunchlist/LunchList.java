@@ -93,6 +93,7 @@ public class LunchList extends TabActivity {
     private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
     	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
     		
+    		
     		name.setText(current.getName());
     		address.setText(current.getAddress());
     		notes.setText(current.getNotes());
@@ -120,7 +121,7 @@ public class LunchList extends TabActivity {
 
 			//EditText name = (EditText)findViewById(R.id.name);
 			//EditText address = (EditText)findViewById(R.id.addr);
-			
+			current = new Restaurant();
 			current.setName(name.getText().toString());
 			current.setAddress(address.getText().toString());
 			current.setNotes(notes.getText().toString());
