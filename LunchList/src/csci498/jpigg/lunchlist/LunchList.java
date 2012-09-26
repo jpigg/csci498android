@@ -22,15 +22,14 @@ import android.widget.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class LunchList extends ListActivity {
+	
+	public final static String ID_EXTRA = "csci498.jpigg.lunchlist._ID";
 	Cursor model;
 	RestaurantAdapter adapter = null;
-	
-    //APT6 step 4
     EditText name = null;
     EditText address = null;
     EditText notes = null;
     RadioGroup types = null;
-    //Restaurant current = null;
     RestaurantHelper helper;
 
     @Override
@@ -47,32 +46,6 @@ public class LunchList extends ListActivity {
     	
     }
     
-    /*
-     * causes crash on run...
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-    	return false;
-    }
-    
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-    	return false;
-    }
-    
-    @Override
-    public void onPause()
-    {
-
-    }
-    
-    @Override
-    public void onResume()
-    {
-    	
-    }
-    */
     
     @Override
     public void onDestroy()
@@ -83,14 +56,13 @@ public class LunchList extends ListActivity {
     }
 
     
-    private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
+    @Override
+    public void onListItemClick(ListView list, View view, int position, long id) {
+    	Intent i = new Intent(LunchList.this, DetailForm.class);
     	
-    	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-    		Intent i = new Intent(LunchList.this, DetailForm.class);
-    		
-    		startActivity(i);
-    	}
-	};
+    	i.putExtra(ID_EXTRA, String.valueOf(id));
+    	startActivity(i);
+    }
 
 	
 	class RestaurantAdapter extends CursorAdapter
