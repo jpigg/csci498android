@@ -20,6 +20,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 public class LunchList extends ListActivity {
 	
@@ -31,21 +33,30 @@ public class LunchList extends ListActivity {
     EditText notes = null;
     RadioGroup types = null;
     RestaurantHelper helper;
+    SharedPreferences prefs;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
-    	
     	setContentView(R.layout.activity_lunch_list);
-    	
     	helper = new RestaurantHelper(this);
-    	model = helper.getAll();
+    	prefs = PreferenceManager.getDefaultSharedPreferences(this);
+    	initList();
+    	prefs.registerOnSharedPreferenceChangeListener(prefListener);
+    }
+    
+    private void initList() {
+    	if (model != null) {
+    		stopManagingCursor(model);
+    		model.close();
+    	}
+    	
+
+    	model = helper.getAll(prefs.getString("sort_order",  "name"));
     	startManagingCursor(model);
     	adapter = new RestaurantAdapter(model);
     	setListAdapter(adapter);
-    	
     }
-    
     
     
     @Override
@@ -70,6 +81,9 @@ public class LunchList extends ListActivity {
     		
     		return(true);
     	}
+    	else if (item.getItemId()==R.id.prefs){
+    		startActivity(new Intent(this, EditPreferences.class));
+    	}
     	
     	return(super.onOptionsItemSelected(item));
     }
@@ -81,6 +95,16 @@ public class LunchList extends ListActivity {
     	i.putExtra(ID_EXTRA, String.valueOf(id));
     	startActivity(i);
     }
+    
+    private SharedPreferences.OnSharedPreferenceChangeListener prefListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+		
+		public void onSharedPreferenceChanged(SharedPreferences sharedPrefs, String key) {
+			if (key.equals("sort_order")) {
+				initList();
+			}
+			
+		}
+	};
 
 	
 	class RestaurantAdapter extends CursorAdapter
