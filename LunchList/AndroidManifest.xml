@@ -2,7 +2,8 @@
     package="csci498.jpigg.lunchlist"
     android:versionCode="1"
     android:versionName="1.0" >
-
+	<uses-permissions android:name="android.permission.INTERNET" />
+	<uses-permissions android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="15" />
@@ -23,6 +24,7 @@
         </activity>
         <activity android:name=".DetailForm"></activity>
         <activity android:name=".EditPreferences"></activity>
+        <activity android:name=".FeedActivity"></activity>
     </application>
 
 </manifest>
