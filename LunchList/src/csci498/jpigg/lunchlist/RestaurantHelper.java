@@ -12,14 +12,14 @@ public class RestaurantHelper extends SQLiteOpenHelper
 {
 	
 	private static final String DATABASE_NAME = "lunchlist.db";
-	private static final int SCHEMA_VERSION = 1;
+	private static final int SCHEMA_VERSION = 2;
 	
 	public RestaurantHelper(Context context)
 	{
 		super(context, DATABASE_NAME, null, SCHEMA_VERSION);
 	}
 	
-	public void insert(String name, String address, String type, String notes)
+	public void insert(String name, String address, String type, String notes, String feed)
 	{
 		ContentValues cv = new ContentValues();
 		
@@ -27,11 +27,12 @@ public class RestaurantHelper extends SQLiteOpenHelper
 		cv.put("address",  address);
 		cv.put("type",  type);
 		cv.put("notes", notes);
+		cv.put("feed",  feed);
 		
 		getWritableDatabase().insert("restaurants",  "name",  cv);
 	}
 	
-	public void update(String id, String name, String address, String type, String notes) {
+	public void update(String id, String name, String address, String type, String notes, String feed) {
 		ContentValues cv = new ContentValues();
 		String[] args = {id};
 		
@@ -39,13 +40,14 @@ public class RestaurantHelper extends SQLiteOpenHelper
 		cv.put("address",  address);
 		cv.put("type",  type);
 		cv.put("notes",  notes);
+		cv.put("feed",  feed);
 		
 		getWritableDatabase().update("restaurants",  cv,  "_ID=?",  args);
 	}
 	
 	public Cursor getAll(String orderBy)
 	{
-		return(getReadableDatabase().rawQuery("SELECT _id,  name, address, type, notes FROM restaurants ORDER BY " + orderBy, null));
+		return(getReadableDatabase().rawQuery("SELECT _id,  name, address, type, notes, feed FROM restaurants ORDER BY " + orderBy, null));
 	}
 	
 	public String getName(Cursor c)
@@ -68,24 +70,28 @@ public class RestaurantHelper extends SQLiteOpenHelper
 		return(c.getString(4));
 	}
 	
+	public String getFeed(Cursor c) {
+		return(c.getString(5));
+	}
+	
 	
 	public Cursor getById(String id) {
 		String[] args = {id};
 		
-		return(getReadableDatabase().rawQuery("SELECT _id, name, address, type, notes FROM restaurants WHERE _ID=?", args));
+		return(getReadableDatabase().rawQuery("SELECT _id, name, address, type, notes, feed FROM restaurants WHERE _ID=?", args));
 	}
 	
 	
 	@Override
 	public void onCreate(SQLiteDatabase db)
 	{
-		db.execSQL("CREATE TABLE restaurants (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, address TEXT, type TEXT, notes TEXT);");
+		db.execSQL("CREATE TABLE restaurants (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, address TEXT, type TEXT, notes TEXT, feed TEXT);");
 	}
 	
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
 	{
-		//nothing to do until another schema version is created
+		db.execSQL("ALTER TABLE restaurants ADD COLUMN feed TEXT");
 	}
 
 }
