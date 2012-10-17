@@ -16,8 +16,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-
 public class DetailForm extends Activity {
 	
 	EditText name = null;
@@ -41,7 +39,6 @@ public class DetailForm extends Activity {
         notes = (EditText)findViewById(R.id.notes);
         types = (RadioGroup)findViewById(R.id.types);
         feed = (EditText)findViewById(R.id.feed);
-        
         
         Button save = (Button)findViewById(R.id.save);
         
