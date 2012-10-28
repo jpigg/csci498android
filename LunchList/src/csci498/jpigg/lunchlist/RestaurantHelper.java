@@ -105,7 +105,7 @@ public class RestaurantHelper extends SQLiteOpenHelper
 		
 		if (oldVersion < 3) {
 			db.execSQL("ALTER TABLE restaurants ADD COLUMN lat REAL");
-			db.execSQL("ALTER TABLE restaurants ADD COLUMN lat REAL");
+			db.execSQL("ALTER TABLE restaurants ADD COLUMN lon REAL");
 		}
 		
 	}
