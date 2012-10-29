@@ -38,10 +38,10 @@ public class DetailForm extends Activity {
 		
 		setContentView(R.layout.detail_form);
 		
+		locMgr = (LocationManager)getSystemService(LOCATION_SERVICE);
+		
 		helper = new RestaurantHelper(this);
 		
-		locMgr = (LocationManager)getSystemService(LOCATION_SERVICE);
-        
         name = (EditText)findViewById(R.id.name);
         address = (EditText)findViewById(R.id.addr);
         notes = (EditText)findViewById(R.id.notes);
@@ -138,6 +138,8 @@ public class DetailForm extends Activity {
 			i.putExtra(RestaurantMap.EXTRA_NAME, name.getText().toString());
 			
 			startActivity(i);
+			
+			return true;
 		}
 		
 		return(super.onOptionsItemSelected(item));

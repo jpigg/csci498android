@@ -2,6 +2,7 @@ package csci498.jpigg.lunchlist;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
@@ -20,6 +21,8 @@ public class RestaurantMap extends MapActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		setContentView(R.layout.map);
 		
 		double lat = getIntent().getDoubleExtra(EXTRA_LATITUDE, 0);
 		double lon = getIntent().getDoubleExtra(EXTRA_LONGITUDE, 0);
@@ -33,7 +36,6 @@ public class RestaurantMap extends MapActivity {
 		map.getController().setCenter(status);
 		map.setBuiltInZoomControls(true);
 		
-		setContentView(R.layout.map);
 		
 		Drawable marker = getResources().getDrawable(R.drawable.marker);
 		
@@ -59,6 +61,13 @@ public class RestaurantMap extends MapActivity {
 			item = new OverlayItem(point, name, name);
 			
 			populate();
+		}
+		
+		@Override
+		protected boolean onTap(int i) {
+			Toast.makeText(RestaurantMap.this, item.getSnippet(), Toast.LENGTH_SHORT).show();
+			
+			return true;
 		}
 		
 		@Override
