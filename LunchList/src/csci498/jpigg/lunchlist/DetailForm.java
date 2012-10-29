@@ -128,6 +128,11 @@ public class DetailForm extends Activity {
 			
 			return(true);
 		}
+		else if (item.getItemId()==R.id.map) {
+			Intent i = new Intent(this, RestaurantMap.class);
+			
+			startActivity(i);
+		}
 		
 		return(super.onOptionsItemSelected(item));
 	}
