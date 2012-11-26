@@ -7,6 +7,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 
 public class OnAlarmReceiver extends BroadcastReceiver {
@@ -28,6 +30,13 @@ public class OnAlarmReceiver extends BroadcastReceiver {
 			note.setLatestEventInfo(ctxt, "LunchList", "It's time for lunch! Aren't you hungry?", i);
 			
 			note.flags |= Notification.FLAG_AUTO_CANCEL;
+			
+			String sound = prefs.getString("alarm_ringtone", null);
+			
+			if (sound != null) {
+				note.sound = Uri.parse(sound);
+				note.audioStreamType = AudioManager.STREAM_ALARM;
+			}
 			
 			mgr.notify(NOTIFY_ME_ID, note);
 		}
