@@ -85,4 +85,5 @@ public class TimePreference extends DialogPreference{
 		lastHour = getHour(time);
 		lastMinute = getMinute(time);
 	}
+	
 }

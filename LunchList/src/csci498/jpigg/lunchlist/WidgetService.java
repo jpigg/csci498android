@@ -62,7 +62,6 @@ public class WidgetService extends IntentService {
 		
 		updateViews.setOnClickPendingIntent(R.id.next, pi);
 		mgr.updateAppWidget(me, updateViews);
-		
 	}
 
 }

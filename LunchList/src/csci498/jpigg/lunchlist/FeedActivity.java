@@ -23,7 +23,6 @@ public class FeedActivity extends ListActivity {
 	public static final String FEED_URL = "csci498.jpigg.lunchlist.FEED_URL";
 	private InstanceState state = null;
 	
-	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -66,9 +65,6 @@ public class FeedActivity extends ListActivity {
 		setListAdapter(new FeedAdapter(feed));
 	}
 	
-	
-	
-	
 	private void goBlooey(Throwable t) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		
@@ -100,8 +96,6 @@ public class FeedActivity extends ListActivity {
 					activity.goBlooey((Exception)msg.obj);
 				}
 			}
-			
-			
 		}
 	
 	
@@ -141,6 +135,7 @@ public class FeedActivity extends ListActivity {
 			
 			return(row);
 		}
+		
 	}
 	
 	private static class InstanceState {

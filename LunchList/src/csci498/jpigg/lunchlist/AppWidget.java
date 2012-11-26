@@ -1,5 +1,7 @@
 package csci498.jpigg.lunchlist;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -9,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.widget.RemoteViews;
 
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class AppWidget extends AppWidgetProvider{
 	
 	@Override
@@ -36,7 +39,6 @@ public class AppWidget extends AppWidgetProvider{
 			widget.setPendingIntentTemplate(R.id.restaurants, clickPI);
 			
 			appWidgetManager.updateAppWidget(appWidgetIds[i], widget);
-			
 		}
 		
 		super.onUpdate(ctxt, appWidgetManager, appWidgetIds);

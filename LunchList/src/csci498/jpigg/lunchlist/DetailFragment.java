@@ -85,20 +85,6 @@ public class DetailFragment extends Fragment {
 		return(inflater.inflate(R.layout.detail_form, container, false));
 	}
 	
-	/*
-	@Override
-	public void onResume() {
-		super.onResume();
-		
-		helper = new RestaurantHelper(getActivity());
-		restaurantId = getActivity().getIntent().getStringExtra(LunchList.ID_EXTRA);
-		
-		if(restaurantId != null) {
-			load();
-		}
-	}
-	*/
-	
 	private RestaurantHelper getHelper() {
 		if (helper == null) {
 			helper = new RestaurantHelper(getActivity());
@@ -126,19 +112,6 @@ public class DetailFragment extends Fragment {
 		state.putInt("type",  types.getCheckedRadioButtonId());
 		
 	}
-	
-	/*
-	 * 
-	@Override
-	public void onRestoreInstanceState(Bundle state) {
-		super.onRestoreInstanceState(state);
-		
-		name.setText(state.getString("name"));
-		address.setText(state.getString("address"));
-		notes.setText(state.getString("notes"));
-		types.check(state.getInt("type"));
-	}
-	 */
 	
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -212,8 +185,6 @@ public class DetailFragment extends Fragment {
 		public void onStatusChanged(String provider, int status, Bundle extras) {
 			// required by interface, not used
 		}
-		
-		
 	};
 	
 	private boolean isNetworkAvailable() {

@@ -79,7 +79,6 @@ public class RestaurantMap extends MapActivity {
 		public int size() {
 			return(1);
 		}
-		
 	}
 	
 }
